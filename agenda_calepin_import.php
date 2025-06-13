@@ -79,23 +79,23 @@
           }
         // Recup Tel Work
           if (rtrim($tabindex[$j])==trad("CALIMP_CSV_PV_TEL_PRO")) {
-            $tel_work = preg_replace("/[ .-]/","",$tabCtt[$j]);
+            $tel_work = ereg_replace("[ .-]","",$tabCtt[$j]);
           }
           // Recup Tel HOME
           if (rtrim($tabindex[$j])==trad("CALIMP_CSV_PV_TEL")) {
-            $tel_home = preg_replace("/[ .-]/","",$tabCtt[$j]);
+            $tel_home = ereg_replace("[ .-]","",$tabCtt[$j]);
           }
           // Recup Tel CELL
           if (rtrim($tabindex[$j])==trad("CALIMP_CSV_PV_TEL_MOBILE")) {
-            $tel_cell = preg_replace("/[ .-]/","",$tabCtt[$j]);
+            $tel_cell = ereg_replace("[ .-]","",$tabCtt[$j]);
           }
           // Recup Tel FAX
           if ((rtrim($tabindex[$j])==trad("CALIMP_CSV_PV_FAX")) && ($tel_fax=="")) {
-            $tel_fax = preg_replace("/[ .-]/","",$tabCtt[$j]);
+            $tel_fax = ereg_replace("[ .-]","",$tabCtt[$j]);
           }
           // Recup Tel FAX
           if ((rtrim($tabindex[$j])==trad("CALIMP_CSV_PV_FAX_PRO")) && ($tel_fax=="")) {
-            $tel_fax = preg_replace("/[ .-]/","",$tabCtt[$j]);
+            $tel_fax = ereg_replace("[ .-]","",$tabCtt[$j]);
           }
           // Recup Email perso
           if (rtrim($tabindex[$j])==trad("CALIMP_CSV_PV_EMAIL")) {
@@ -104,8 +104,8 @@
         }
   //      echo $soc.','.$nom_c.','.$prenom_c.','.$adresse.','.$cpostal.','.$ville.','.$pays.','.$tel_home.','.$tel_work.','.$tel_cell.','.$tel_fax.','.$email_perso.','.$icq.','.$note.','.$anniv.','.$aim.','.$msn.','.$yahoo.','.$email_boulot.'<br>';
         // On protege les apostrophes
-        $adresse = preg_replace("/'/","\'",$adresse);
-        $note = preg_replace("/'/","\'",$note);
+        $adresse = ereg_replace("'","\'",$adresse);
+        $note = ereg_replace("'","\'",$note);
         $num_contact += 1;
         $nom_c = rtrim(strtoupper($nom));
         $prenom_c = rtrim(ucwords(strtolower($prenom)));
@@ -180,7 +180,7 @@
         $tabCtt = explode(":",$fcontents[$i],2);
         if ($tabCtt[0]=="BEGIN") {
           //Si BEGIN:VCARD n'est pas dans le fichier c'est que le fichier n'est pas correct !!
-          if (!preg_match("/VCARD/i",$tabCtt[1])) {
+          if (!eregi("VCARD",$tabCtt[1])) {
             $err = "<P class=\"rouge\"><B>".trad("CALIMP_ECHEC_PB_VCARD")."</B></P>";
             break;
           } else {
@@ -199,13 +199,13 @@
             $nom = $soc;
         }
         // Recup adresse
-        if (preg_match("/ADR;HOME/i",$tabCtt[0])) {
+        if (eregi("ADR;HOME",$tabCtt[0])) {
           list(,,$adresse,$ville,,$cpostal,$pays) = explode(";",$tabCtt[1]);
           // \r pour le retour a la ligne
           $adresse = str_replace("=0D=0A","\r\n",$adresse);
         }
         // Recup note
-        if (preg_match("/NOTE/i",$tabCtt[0])) {
+        if (eregi("NOTE",$tabCtt[0])) {
           if ($note=="") $note = $tabCtt[1];
           else $note = $note."\r\n".$tabCtt[1];
           // "\r" pour le retour a la ligne
@@ -225,20 +225,20 @@
           $anniv = $an."-".$mois."-".$jour;
         }
         // Recup Tel Work
-        if (($tabCtt[0]=="TEL;WORK") || (preg_match("/TEL;PREF;WORK/i",$tabCtt[0]))) {
-          $tel_work = preg_replace("/[ .-]/","",$tabCtt[1]);
+        if (($tabCtt[0]=="TEL;WORK") || (eregi("TEL;PREF;WORK",$tabCtt[0]))) {
+          $tel_work = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Tel HOME
         if ($tabCtt[0]=="TEL;HOME") {
-          $tel_home = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_home = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Tel CELL
         if ($tabCtt[0]=="TEL;CELL") {
-          $tel_cell = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_cell = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Tel FAX
-        if (($tabCtt[0]=="TEL;FAX") || (preg_match("/TEL;WORK;FAX/i",$tabCtt[0]))) {
-          $tel_fax = preg_replace("/[ .-]/","",$tabCtt[1]);
+        if (($tabCtt[0]=="TEL;FAX") || (eregi("TEL;WORK;FAX",$tabCtt[0]))) {
+          $tel_fax = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Email perso
         if ($tabCtt[0]=="EMAIL") {
@@ -267,8 +267,8 @@
         // Fin des infos du contact
         if ($tabCtt[0]=="END") {
           // On protege les apostrophes
-          $adresse = preg_replace("/'/","\'",$adresse);
-          $note = preg_replace("/'/","\'",$note);
+          $adresse = ereg_replace("'","\'",$adresse);
+          $note = ereg_replace("'","\'",$note);
           $num_contact += 1;
           $nom_c = rtrim(strtoupper($nom));
           $prenom_c = rtrim(ucwords(strtolower($prenom)));
@@ -344,7 +344,7 @@
         $tabCtt = explode(":",$fcontents[$i],2);
         if ($tabCtt[0]=="BEGIN") {
           //Si BEGIN:VCARD n'est pas dans le fichier c'est que le fichier n'est pas correct !!
-          if (!preg_match("/VCARD/i",$tabCtt[1])) {
+          if (!eregi("VCARD",$tabCtt[1])) {
             $err = "<P class=\"rouge\"><B>".trad("CALIMP_ECHEC_PB_VCARD")."</B></P>";
             break;
           } else {
@@ -363,13 +363,13 @@
             $nom = $soc;
         }
         // Recup adresse
-        if (preg_match("/ADR;HOME/i",$tabCtt[0])) {
+        if (eregi("ADR;HOME",$tabCtt[0])) {
           list(,,$adresse,$ville,,$cpostal,$pays) = explode(";",$tabCtt[1]);
           // \r pour le retour a la ligne
           $adresse = str_replace("=0D=0A","\r\n",$adresse);
         }
         // Recup note
-        if (preg_match("/NOTE/i",$tabCtt[0])) {
+        if (eregi("NOTE",$tabCtt[0])) {
           $note = $tabCtt[1];
           // \r pour le retour a la ligne
           $note = str_replace("=0D=0A","\r\n",$note);
@@ -384,19 +384,19 @@
         }
         // Recup Tel Work
         if ($tabCtt[0]=="TEL;WORK") {
-          $tel_work = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_work = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Tel HOME
         if ($tabCtt[0]=="TEL;HOME") {
-          $tel_home = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_home = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Tel CELL
         if ($tabCtt[0]=="TEL;CELL") {
-          $tel_cell = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_cell = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Tel FAX
         if ($tabCtt[0]=="TEL;FAX") {
-          $tel_fax = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_fax = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Email perso
         if ($tabCtt[0]=="EMAIL") {
@@ -426,8 +426,8 @@
         // Fin des infos du contact
         if ($tabCtt[0]=="END") {
           // On protege les apostrophes
-          $adresse = preg_replace("/'/","\'",$adresse);
-          $note = preg_replace("/'/","\'",$note);
+          $adresse = ereg_replace("'","\'",$adresse);
+          $note = ereg_replace("'","\'",$note);
           $num_contact += 1;
           $nom_c = rtrim(strtoupper($nom));
           $prenom_c = rtrim(ucwords(strtolower($prenom)));
@@ -567,23 +567,23 @@
             }
             // Recup Tel Work
             if (rtrim($tabindex[$j])==trad("CALIMP_CSV_V_TEL_PRO")) {
-              $tel_work = preg_replace("/[ .-]/","",$tabCtt[$j]);
+              $tel_work = ereg_replace("[ .-]","",$tabCtt[$j]);
             }
             // Recup Tel HOME
             if (rtrim($tabindex[$j])==trad("CALIMP_CSV_V_TEL")) {
-              $tel_home = preg_replace("/[ .-]/","",$tabCtt[$j]);
+              $tel_home = ereg_replace("[ .-]","",$tabCtt[$j]);
             }
             // Recup Tel CELL
             if (rtrim($tabindex[$j])==trad("CALIMP_CSV_V_TEL_MOBILE")) {
-              $tel_cell = preg_replace("/[ .-]/","",$tabCtt[$j]);
+              $tel_cell = ereg_replace("[ .-]","",$tabCtt[$j]);
             }
             // Recup Tel FAX
             if ((rtrim($tabindex[$j])==trad("CALIMP_CSV_V_FAX")) && ($tel_fax=="")) {
-              $tel_fax = preg_replace("/[ .-]/","",$tabCtt[$j]);
+              $tel_fax = ereg_replace("[ .-]","",$tabCtt[$j]);
             }
             // Recup Tel FAX
             if ((rtrim($tabindex[$j])==trad("CALIMP_CSV_V_FAX_PRO")) && ($tel_fax=="")) {
-              $tel_fax = preg_replace("/[ .-]/","",$tabCtt[$j]);
+              $tel_fax = ereg_replace("[ .-]","",$tabCtt[$j]);
             }
             // Recup Email perso
             if (rtrim($tabindex[$j])==trad("CALIMP_CSV_V_EMAIL")) {
@@ -592,8 +592,8 @@
           }
 //      echo $soc.','.$nom_c.','.$prenom_c.','.$adresse.','.$cpostal.','.$ville.','.$pays.','.$tel_home.','.$tel_work.','.$tel_cell.','.$tel_fax.','.$email_perso.','.$icq.','.$note.','.$anniv.','.$aim.','.$msn.','.$yahoo.','.$email_boulot.'<br>';
           // On protege les apostrophes
-          $adresse = preg_replace("/'/","\'",$adresse);
-          $note = preg_replace("/'/","\'",$note);
+          $adresse = ereg_replace("'","\'",$adresse);
+          $note = ereg_replace("'","\'",$note);
           $num_contact += 1;
           $nom_c = rtrim(strtoupper($nom));
           $prenom_c = rtrim(ucwords(strtolower($prenom)));
@@ -668,16 +668,16 @@
           }
 
           // On protege les apostrophes
-          $adresse = preg_replace("/'/","\'",$adresse);
-          $note = preg_replace("/'/","\'",$note);
+          $adresse = ereg_replace("'","\'",$adresse);
+          $note = ereg_replace("'","\'",$note);
           $nom = rtrim(strtoupper($nom));
           $prenom = rtrim(ucwords(strtolower($prenom)));
           $nom_c = $nom;
           $prenom_c = $prenom;
-          $tel_home = preg_replace("/[ .-]/","",$tel_home);
-          $tel_work = preg_replace("/[ .-]/","",$tel_work);
-          $tel_cell = preg_replace("/[ .-]/","",$tel_cell);
-          $tel_fax = preg_replace("/[ .-]/","",$tel_fax);
+          $tel_home = ereg_replace("[ .-]","",$tel_home);
+          $tel_work = ereg_replace("[ .-]","",$tel_work);
+          $tel_cell = ereg_replace("[ .-]","",$tel_cell);
+          $tel_fax = ereg_replace("[ .-]","",$tel_fax);
           if (($nom=="") && ($soc!=""))
             $nom = $soc;
           // Enregistrement du contact dans la Base
@@ -755,7 +755,7 @@
           if (($debut=="1") && ($err_list!="1")) {
             // On a deja fait un tour, on peut sauvegarder le contact (si ce n'est pas une liste)
             // On protege les apostrophes
-            $adresse = preg_replace("/'/","\'",$adresse);
+            $adresse = ereg_replace("'","\'",$adresse);
             $num_contact += 1;
             $nom_c = rtrim(strtoupper($nom));
             $prenom_c = rtrim(ucwords(strtolower($prenom)));
@@ -832,19 +832,19 @@
         }
         // Recup du Tel boulot
         if ($tabCtt[0]=="telephoneNumber") {
-          $tel_work = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_work = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup du Tel maison
         if ($tabCtt[0]=="homePhone") {
-          $tel_home = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_home = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup du Tel maison
         if ($tabCtt[0]=="facsimileTelephoneNumber") {
-          $tel_fax = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_fax = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup du Tel portable
         if ($tabCtt[0]=="mobile") {
-          $tel_cell = preg_replace("/[ .-]/","",$tabCtt[1]);
+          $tel_cell = ereg_replace("[ .-]","",$tabCtt[1]);
         }
         // Recup Adresse
         if ($tabCtt[0]=="homePostalAddress") {

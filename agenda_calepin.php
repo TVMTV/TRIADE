@@ -648,13 +648,13 @@ function verif($nom,&$domicile,&$travail,&$portable,&$fax,$email,$emailpro,$icq,
     $fax      = preg_replace( "/[^0-9+]+/","",$fax);
   }
 
-  if (($email != "") && (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/i",$email)))
+  if (($email != "") && (!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$",$email)))
     $err .= "&nbsp;- ".trad("CALEPIN_SAISIR_EMAIL");
 
-  if (($emailpro != "") && (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/",$emailpro)))
+  if (($emailpro != "") && (!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$",$emailpro)))
     $err .= "&nbsp;- ".trad("CALEPIN_SAISIR_EMAIL_PRO");
 
-  if (($icq != "") && (!preg_match("/^[0-9]*$/",$icq)))
+  if (($icq != "") && (!ereg("^[0-9]*$",$icq)))
     $err .= "&nbsp;- ".trad("CALEPIN_SAISIR_ICQ")."<BR>";
 
   if ($groupe == "0")
