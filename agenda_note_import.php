@@ -99,66 +99,66 @@
           }
           if ($nbNote>0) {
             // on traite la note
-            if (preg_match("/UID/i",$tabCtt[0])) {
+            if (eregi("UID",$tabCtt[0])) {
               $note_uid = trim($tabCtt[1]);
             }
-            elseif (preg_match("/SUMMARY/i",$tabCtt[0])) {
+            elseif (eregi("SUMMARY",$tabCtt[0])) {
               $note_summary = str_replace("'","\'",trim($tabCtt[1]));
               $note_summary = str_replace("\n"," ",$note_summary);
               $note_summary = utf8_decode($note_summary);
             }
-            elseif (preg_match("/DESCRIPTION/i",$tabCtt[0])) {
-              if (!preg_match("/Mozilla Alarm:/i",$tabCtt[1])) {
+            elseif (eregi("DESCRIPTION",$tabCtt[0])) {
+              if (!eregi("Mozilla Alarm:",$tabCtt[1])) {
                 $note_description = str_replace("'","\'",trim($tabCtt[1]));
                 $note_description = str_replace("\n","\r\n",$note_description);
                 $note_description = utf8_decode($note_description);
               }
             }
-            elseif (preg_match("/LOCATION/i",$tabCtt[0])) {
+            elseif (eregi("LOCATION",$tabCtt[0])) {
               $note_location = str_replace("'","\'",trim($tabCtt[1]));
               $note_location = str_replace("\n"," ",$note_location);
               $note_location = utf8_decode($note_location);
             }
-            elseif (preg_match("/DTSTAMP/i",$tabCtt[0])) {
+            elseif (eregi("DTSTAMP",$tabCtt[0])) {
               $age_date_create=trim($tabCtt[1]);
             }
-            elseif (preg_match("/LAST-MODIFIED/i",$tabCtt[0])) {
+            elseif (eregi("LAST-MODIFIED",$tabCtt[0])) {
               $age_date_modif=trim($tabCtt[1]);
             }
-            elseif (preg_match("/CLASS/i",$tabCtt[0])) {
+            elseif (eregi("CLASS",$tabCtt[0])) {
               $note_class = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-TYPE/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-TYPE",$tabCtt[0])) {
               $ckTypeNote = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-COLOR/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-COLOR",$tabCtt[0])) {
               $note_couleur = str_replace("'","\'",trim($tabCtt[1]));
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-RAPPEL/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-RAPPEL",$tabCtt[0])) {
               $note_rappel = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-DISPO/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-DISPO",$tabCtt[0])) {
               $note_dispo = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-CONTACT/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-CONTACT",$tabCtt[0])) {
               $note_contact = trim($tabCtt[1]);
             }
-            elseif (preg_match("/TRIGGER/i",$tabCtt[0])) {
+            elseif (eregi("TRIGGER",$tabCtt[0])) {
               $tabCtt[0]="";
               $note_alarm = trim($tabCtt[1]);
             }
-            elseif (preg_match("/DURATION/i",$tabCtt[0])) {
+            elseif (eregi("DURATION",$tabCtt[0])) {
               $note_duration = trim($tabCtt[1]);
             }
-            elseif (preg_match("/RRULE/i",$tabCtt[0])) {
+            elseif (eregi("RRULE",$tabCtt[0])) {
               $note_rrule = trim($tabCtt[1]);
             }
-            elseif (preg_match("/CATEGORIES/i",$tabCtt[0])) {
+            elseif (eregi("CATEGORIES",$tabCtt[0])) {
               $note_categorie = trim($tabCtt[1]);
             }
-            elseif (preg_match("/DTSTART/i",$tabCtt[0])) {
+            elseif (eregi("DTSTART",$tabCtt[0])) {
               $note_dtstart = trim($tabCtt[1]);
-              if (preg_match("/TZID/i",$tabCtt[0])) {
+              if (eregi("TZID",$tabCtt[0])) {
                 $tab_TZ = explode("/",$tabCtt[0]);
                 $note_TZ = array_pop($tab_TZ);
                 $note_TZ = array_pop($tab_TZ)."/".$note_TZ;
@@ -167,7 +167,7 @@
                 $note_TZ=$note_GLOB_TZ;
               }
             }
-            elseif (preg_match("/DTEND/i",$tabCtt[0])) {
+            elseif (eregi("DTEND",$tabCtt[0])) {
               $note_dtend = trim($tabCtt[1]);
             }
             elseif ($tabCtt[1]=="") {
@@ -189,7 +189,7 @@
             }
             $last_obj = $tabCtt[0];
           }
-          if (preg_match("/TZID/i",$tabCtt[0])) {
+          if (eregi("TZID",$tabCtt[0])) {
             $tab_GLOB_TZ = explode("/",$tabCtt[0]);
             $note_GLOB_TZ = array_pop($tab_GLOB_TZ);
             $note_GLOB_TZ = array_pop($tab_GLOB_TZ)."/".$note_GLOB_TZ;
@@ -658,53 +658,53 @@
           }
           if ($nbNote>0) {
             // on traite la note
-            if (preg_match("/SUMMARY/i",$tabCtt[0])) {
+            if (eregi("SUMMARY",$tabCtt[0])) {
               $note_summary = str_replace("'","\'",trim($tabCtt[1]));
             }
-            elseif (preg_match("/DESCRIPTION/i",$tabCtt[0])) {
+            elseif (eregi("DESCRIPTION",$tabCtt[0])) {
               $note_description = str_replace("'","\'",trim($tabCtt[1]));
               $note_description = str_replace("=0D=0A","\r\n",$note_description);
             }
-            elseif (preg_match("/LOCATION/i",$tabCtt[0])) {
+            elseif (eregi("LOCATION",$tabCtt[0])) {
               $note_location = str_replace("'","\'",trim($tabCtt[1]));
             }
-            elseif (preg_match("/CLASS/i",$tabCtt[0])) {
+            elseif (eregi("CLASS",$tabCtt[0])) {
               $note_class = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-TYPE/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-TYPE",$tabCtt[0])) {
               $ckTypeNote = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-COLOR/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-COLOR",$tabCtt[0])) {
               $note_couleur = str_replace("'","\'",trim($tabCtt[1]));
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-RAPPEL/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-RAPPEL",$tabCtt[0])) {
               $note_rappel = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-DISPO/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-DISPO",$tabCtt[0])) {
               $note_dispo = trim($tabCtt[1]);
             }
-            elseif (preg_match("/X-PHENIX-AGENDA-CONTACT/i",$tabCtt[0])) {
+            elseif (eregi("X-PHENIX-AGENDA-CONTACT",$tabCtt[0])) {
               $note_contact = trim($tabCtt[1]);
             }
-            elseif (preg_match("/DCREATED/i",$tabCtt[0])) {
+            elseif (eregi("DCREATED",$tabCtt[0])) {
               $age_date_create= trim($tabCtt[1]);
             }
-            elseif (preg_match("/LAST-MODIFIED/i",$tabCtt[0])) {
+            elseif (eregi("LAST-MODIFIED",$tabCtt[0])) {
               $age_date_modif=trim($tabCtt[1]);
             }
-            elseif (preg_match("/RRULE/i",$tabCtt[0])) {
+            elseif (eregi("RRULE",$tabCtt[0])) {
               $note_rrule = trim($tabCtt[1]);
             }
-            elseif (preg_match("/CATEGORIES/i",$tabCtt[0])) {
+            elseif (eregi("CATEGORIES",$tabCtt[0])) {
               $note_categorie = trim($tabCtt[1]);
             }
-            elseif (preg_match("/DALARM/i",$tabCtt[0])) {
+            elseif (eregi("DALARM",$tabCtt[0])) {
               $note_alarm = trim($tabCtt[1]);
             }
-            elseif (preg_match("/DTSTART/i",$tabCtt[0])) {
+            elseif (eregi("DTSTART",$tabCtt[0])) {
               $note_dtstart = trim($tabCtt[1]);
             }
-            elseif (preg_match("/DTEND/i",$tabCtt[0])) {
+            elseif (eregi("DTEND",$tabCtt[0])) {
               $note_dtend = trim($tabCtt[1]);
             }
           }

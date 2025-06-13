@@ -431,18 +431,18 @@
     <TABLE cellspacing="0" cellpadding="0" width="<?php echo ($idUser) ? "585" : "565"; ?>" border="0">
     <TR bgcolor="<?php echo $bgColor[$iColor%2]; ?>" height="21">
       <TD class="tabIntitule" height="20"><?php echo trad("PROFIL_LIB_NOM"); ?></TD>
-      <TD width="436" class="tabInput"><INPUT type="text" class="Texte" name="ztNom" size="25" maxlength="32" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo htmlspecialchars(stripslashes($rsProfil['util_nom'])); ?>" readonly='readonly' style="text-transform: <?php echo ($AUTO_UPPERCASE == true) ? "uppercase" : "capitalize"; ?>;"></TD>
+      <TD width="436" class="tabInput"><INPUT type="text" class="Texte" name="ztNom" size="25" maxlength="32" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo htmlspecialchars(stripslashes($rsProfil['util_nom'])); ?>" style="text-transform: <?php echo ($AUTO_UPPERCASE == true) ? "uppercase" : "capitalize"; ?>;"></TD>
     </TR>
     <TR bgcolor="<?php echo $bgColor[++$iColor%2]; ?>" height="21">
       <TD class="tabIntitule" height="20"><?php echo trad("PROFIL_LIB_PRENOM"); ?></TD>
-      <TD class="tabInput"><INPUT type="text" class="Texte" name="ztPrenom" readonly='readonly' size="25" maxlength="32" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo htmlspecialchars(stripslashes($rsProfil['util_prenom'])); ?>" style="text-transform: capitalize;"></TD>
+      <TD class="tabInput"><INPUT type="text" class="Texte" name="ztPrenom" size="25" maxlength="32" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo htmlspecialchars(stripslashes($rsProfil['util_prenom'])); ?>" style="text-transform: capitalize;"></TD>
     </TR>
 <?php
   if ($droit_Aff_Login=="0") {
 ?>
     <TR bgcolor="<?php echo $bgColor[++$iColor%2]; ?>" height="21">
       <TD class="tabIntitule" height="20"><?php echo trad("PROFIL_LIB_LOGIN"); ?></TD>
-      <TD class="tabInput">Interne à TRIADE<INPUT type="text" style="visibility:hidden" class="Texte" name="ztLogin" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo htmlspecialchars(stripslashes($rsProfil['util_login'])); ?>">&nbsp;&nbsp;&nbsp;</TD>
+      <TD class="tabInput"><INPUT type="text" class="Texte" name="ztLogin" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo htmlspecialchars(stripslashes($rsProfil['util_login'])); ?>">&nbsp;&nbsp;&nbsp;<INPUT type="button" class="Bouton" value="<?php echo trad("PROFIL_BT_AUTO"); ?>" name="btAutoLogin" tabindex="<?php echo $tabIndex++; ?>" onclick="javascript: loginAuto();"></TD>
     </TR>
 <?php
   } else {
@@ -455,23 +455,23 @@
 <?php if ($ztAction == "UPDATE") { ?>
     <TR bgcolor="<?php echo $bgColor[++$iColor%2]; ?>" height="21">
       <TD class="tabIntitule" nowrap height="20"><?php echo trad("PROFIL_LIB_ANCIEN_PASSWD"); ?></TD>
-      <TD class="tabInput">******<INPUT type="hidden" class="Texte" name="ztOldPasswd" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value="aucun"><INPUT type="hidden" name="ztOldPasswdMD5"></TD>
+      <TD class="tabInput"><INPUT type="password" class="Texte" name="ztOldPasswd" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value=""><INPUT type="hidden" name="ztOldPasswdMD5"></TD>
     </TR>
 <?php } ?>
     <TR bgcolor="<?php echo $bgColor[++$iColor%2]; ?>" height="21">
       <TD class="tabIntitule" nowrap height="20"><?php echo $nouveau ?>&nbsp;&nbsp;</TD>
-      <TD class="tabInput">******<INPUT type="hidden" class="Texte" name="ztPasswdNew" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value="aucun"><INPUT type="hidden" name="ztPasswdMD5"></TD>
+      <TD class="tabInput"><INPUT type="password" class="Texte" name="ztPasswdNew" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value=""><INPUT type="hidden" name="ztPasswdMD5"></TD>
     </TR>
     <TR bgcolor="<?php echo $bgColor[++$iColor%2]; ?>" height="21">
       <TD class="tabIntitule" height="20"><?php echo trad("PROFIL_LIB_CONFIRMATION"); ?></TD>
-      <TD class="tabInput">******<INPUT type="hidden" class="Texte" name="ztConfirmPasswd" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value="aucun"></TD>
+      <TD class="tabInput"><INPUT type="password" class="Texte" name="ztConfirmPasswd" size="15" maxlength="12" tabindex="<?php echo $tabIndex++; ?>" value=""></TD>
     </TR>
 <?php
   } else {
 ?>
-     <INPUT type="hidden" class="Texte" name="ztOldPasswd"  value="aucun"><INPUT type="hidden" name="ztOldPasswdMD5">
-    <INPUT type="hidden" class="Texte" name="ztPasswdNew"  value="aucun"><INPUT type="hidden" name="ztPasswdMD5">
-    <INPUT type="hidden" class="Texte" name="ztConfirmPasswd" value="aucun">
+     <INPUT type="hidden" class="Texte" name="ztOldPasswd"  value=""><INPUT type="hidden" name="ztOldPasswdMD5">
+    <INPUT type="hidden" class="Texte" name="ztPasswdNew"  value=""><INPUT type="hidden" name="ztPasswdMD5">
+    <INPUT type="hidden" class="Texte" name="ztConfirmPasswd" value="">
 <?php
   }
 ?>
@@ -733,7 +733,7 @@ if ($AUTORISE_FCKE_CFG && $AUTORISE_HTML) {
   $meteo = explode(";",$rsProfil['util_meteo_code']);
   ?>
       <TD class="tabIntitule" height="20"><?php echo trad("MODMET_PROFIL"); ?></TD>
-      <TD class="tabInput"><?php echo trad("MODMET_CODE"); ?> : <INPUT type="text" class="Texte" name="ztMeteoCode" id="ztMeteoCode" size="10" maxlength="10" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo $meteo[0]; ?>">&nbsp;&nbsp;&nbsp;<INPUT type="checkbox" name="ztMeteoActif" id="ztMeteoActif" value="<?php if ($meteo[1]=="1") echo "1";else echo "0"; ?>" class="Case" onchange="javascript: switch_meteo('<?php echo $meteo[0]; ?>');" tabindex="<?php echo $tabIndex++; ?>"<?php if ($meteo[1]=="1") echo " checked"; ?>><?php echo trad("MODMET_ACTIF"); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <TD class="tabInput"><?php echo trad("MODMET_CODE"); ?> : <INPUT type="text" class="Texte" name="ztMeteoCode" id="ztMeteoCode" size="10" maxlength="10" tabindex="<?php echo $tabIndex++; ?>" value="<?php echo $meteo[0]; ?>">&nbsp;&nbsp;&nbsp;<INPUT type="checkbox" name="ztMeteoActif" id="ztMeteoActif" value="<?php if ($meteo[1]=="1") echo "1";else echo "0"; ?>" class="Case" onchange="javascript: switch_meteo('<?php echo $meteo[0]; ?>');" tabindex="<?php echo $tabIndex++; ?>"<?php if ($meteo[1]=="1") echo " checked"; ?>><?php echo trad("MODMET_ACTIF"); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<?php echo trad("MODMET_EX"); ?> <A href="http://www.weather.com/" target="_blank">weather.com</A>)
     <INPUT type="hidden" id="ztMeteo" name="ztMeteo" value="">
     </TD>
     </TR>

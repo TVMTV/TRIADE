@@ -847,7 +847,7 @@
 <?php
   // Gestion du rollover pour ie
   $navigateur = $_SERVER['HTTP_USER_AGENT'];
-  if (preg_match("/MSIE/", $navigateur)) {
+  if (ereg("MSIE", $navigateur)) {
 ?>
   <SCRIPT language="JavaScript" type="text/javascript">
   <!--
